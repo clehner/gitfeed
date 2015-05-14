@@ -21,9 +21,6 @@ cat <<EOF
     <link rel="alternate" type="text/html" href="$SITE_URL"/>
     <link rel="self" type="application/rss+xml" href="${SITE_URL}feed.xml"/>
     <updated>$(date --iso-8601=seconds | sed 's/..$/:&/')</updated>
-    <author>
-      <name>$SITE_AUTHOR</name>
-    </author>
     <id>$SITE_ID</id>
 
 EOF

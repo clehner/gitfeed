@@ -10,7 +10,6 @@ are optional.
 
     export SITE_TITLE='Example Site'
     export SITE_URL='http://example.org'
-    export SITE_AUTHOR='Me'
     export SITE_ENTRIES=30  # max number of entries in the feed
     export SITE_WIDTH=100   # width of diff stat. leave at 80 unless you have
                             # long filenames.
