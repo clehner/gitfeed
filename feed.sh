@@ -10,7 +10,7 @@ hash uuidgen >&2 || uuidgen() {
 
 : ${SITE_TITLE:=My Cool Site}
 : ${SITE_AUTHOR:=$(grep $(id -u) /etc/passwd | cut -d: -f 5 | cut -d, -f1)}
-: ${SITE_ID:=$(cat site_id || echo urn:uuid:$(uuidgen) | tee site_id)}
+: ${SITE_ID:=$(cat site_id 2>&- || echo urn:uuid:$(uuidgen) | tee site_id)}
 : ${FEED_ENTRIES:=15}
 : ${FEED_WIDTH:=80}
 
