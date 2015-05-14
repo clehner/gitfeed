@@ -1,3 +1,4 @@
-feed.xml: feed.sh xml.awk .git/info/refs site_id
-	./$< > $@
+SITE_URL := http://localhost/
 
+feed.xml: feed.sh xml.awk .git/logs/HEAD
+	SITE_URL="$(SITE_URL)" ./$< > $@

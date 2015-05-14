@@ -1,6 +1,7 @@
 #!/bin/sh
 
-: ${SITE_URL:=./}
+test -z "$SITE_URL" && echo 'Define the SITE_URL env variable' >&2 && exit 1
+
 : ${SITE_TITLE:=My Cool Site}
 : ${SITE_AUTHOR:=$(grep $(id -u) /etc/passwd | cut -d: -f 5 | cut -d, -f1)}
 : ${SITE_ID:=$(cat site_id || echo urn:uuid:$(uuidgen) | tee site_id)}
