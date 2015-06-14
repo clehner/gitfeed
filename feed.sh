@@ -2,6 +2,8 @@
 
 test -z "$SITE_URL" && echo 'Define the SITE_URL env variable' >&2 && exit 1
 
+dir=$(dirname $([ -L $0 ] && readlink -f $0 || echo $0))
+
 hash uuidgen >&2 || uuidgen() {
     cat /proc/sys/kernel/random/uuid 2>&- ||\ # Linux
     cat /compat/linux/proc/sys/kernel/random/uuid 2>&- ||\ # FreeBSD
@@ -37,7 +39,7 @@ content $content_delim
 commit %H
 
 %B
-stat $content_delim" $@ | awk -f xml.awk -v site="$SITE_URL"
+stat $content_delim" $@ | awk -f "$dir/xml.awk" -v site="$SITE_URL"
 
 cat <<EOF
   </feed>
