@@ -37,7 +37,7 @@ content $content_delim
 commit %H
 
 %B
-stat $content_delim" | awk -f xml.awk -v site="$SITE_URL"
+stat $content_delim" $@ | awk -f xml.awk -v site="$SITE_URL"
 
 cat <<EOF
   </feed>
