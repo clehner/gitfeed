@@ -53,7 +53,13 @@ $1 == "content" {
 }
 
 in_stat && /^ [^ ]* *\|/ {
-	sub(/[^ ][^ ]*/, "<a href=\"" site "&\">&</a>")
+	if (match($0, /.\html\.sh /)) {
+		sub(/\.html\.sh /, ".html ")
+		suffix = ".sh"
+	} else {
+		suffix = ""
+	}
+	sub(/[^ ][^ ]*/, "<a href=\"" site "&\">&</a>" suffix)
 }
 
 in_stat && / \+*-*$/ {
