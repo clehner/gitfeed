@@ -4,6 +4,17 @@ test -z "$SITE_URL" && echo 'Define the SITE_URL env variable' >&2 && exit 1
 
 dir=$(dirname $([ -L $0 ] && readlink -f $0 || echo $0))
 
+cmd=
+xslt_sheet=
+for arg; do
+  case $cmd in
+    '') case "$arg" in
+      --xslt) cmd=xslt;;
+    xslt) xslt_sheet="$arg"; cmd=;;
+    esac;;
+  esac
+done
+
 hash uuidgen >&2 || uuidgen() {
     cat /proc/sys/kernel/random/uuid 2>&- ||\ # Linux
     cat /compat/linux/proc/sys/kernel/random/uuid 2>&- ||\ # FreeBSD
@@ -15,8 +26,11 @@ hash uuidgen >&2 || uuidgen() {
 : ${FEED_ENTRIES:=15}
 : ${FEED_WIDTH:=80}
 
+echo '<?xml version="1.0" encoding="utf-8"?>'
+if [ "$xslt_sheet" ]; then
+  echo '<?xml-stylesheet type="text/xsl" href="'$xslt_sheet'" version="1.0"?>'
+fi
 cat <<EOF
-<?xml version="1.0" encoding="utf-8"?>
   <feed xmlns="http://www.w3.org/2005/Atom">
     <title>$SITE_TITLE</title>
     <link rel="alternate" type="text/html" href="$SITE_URL"/>
