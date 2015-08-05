@@ -6,14 +6,18 @@ dir=$(dirname $([ -L $0 ] && readlink -f $0 || echo $0))
 
 cmd=
 xslt_sheet=
+args=
 for arg; do
   case $cmd in
     '') case "$arg" in
       --xslt) cmd=xslt;;
+      --) args="$args ${@:i+1}"; break;;
+      *) args="$args $arg";;
+      esac;;
     xslt) xslt_sheet="$arg"; cmd=;;
-    esac;;
   esac
 done
+set -- "$args"
 
 hash uuidgen >&2 || uuidgen() {
     cat /proc/sys/kernel/random/uuid 2>&- ||\ # Linux
